@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_SD_ValveState" Id="{11fc0dc5-5ce0-41f1-97b6-d259d310fbc8}">
+    <Declaration><![CDATA[INTERFACE I_SD_ValveState
+]]></Declaration>
+    <Method Name="Close" Id="{e6e36200-c6b8-49d9-b173-3330708f4805}">
+      <Declaration><![CDATA[METHOD Close : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Open" Id="{57dcb4a3-dc6a-45b8-b197-facbd22315ce}">
+      <Declaration><![CDATA[METHOD Open : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="RUN" Id="{5b82c0a1-23f7-4049-967b-5f7e149e495b}">
+      <Declaration><![CDATA[METHOD RUN
+]]></Declaration>
+    </Method>
+    <Property Name="StateName" Id="{a91f2d09-82e9-46d4-a25d-d3e08f17aa20}">
+      <Declaration><![CDATA[PROPERTY StateName : STRING]]></Declaration>
+      <Get Name="Get" Id="{2799e6ce-9b32-41d0-a059-1cd8a3413a6b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

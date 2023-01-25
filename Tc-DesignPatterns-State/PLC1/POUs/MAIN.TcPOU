@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{8dd93341-7f75-4066-b92e-0123e424ddd6}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+    sdValve : SD_Valve;
+    openCmd : BOOL;
+    openResult : BOOL;
+    closeCmd : BOOL;
+    closeResult : BOOL;
+    goToManaulCmd : BOOL;
+    goToInitCmd : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[sdValve();
+
+IF openCmd THEN
+    openCmd := FALSE;
+    openResult := FALSE;
+    openResult :=sdValve.OpenValve();
+END_IF
+
+IF closeCmd THEN
+    closeCmd := FALSE;
+    closeResult := FALSE;
+    closeResult := sdValve.CloseValve();
+END_IF
+
+IF goToManaulCmd THEN
+    goToManaulCmd := FALSE;
+    sdValve.GoToManualState();
+END_IF
+
+IF goToInitCmd THEN
+    goToInitCmd := FALSE;
+    sdValve.GoToInitState();
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

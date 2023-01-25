@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="InitState" Id="{c6492e7b-2779-484f-91cc-b35751e8ded7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK InitState IMPLEMENTS I_SD_ValveState
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    _ptSdValve : POINTER TO SD_Valve;
+    delayTimer : Tc2_Standard.TON;
+    start : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[delayTimer(IN:=start,PT:=T#10S);
+IF NOT start THEN
+    start := TRUE;
+END_IF
+IF delayTimer.q THEN
+    start := FALSE;
+    _ptSdValve^.GoToAutoState();
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="Close" Id="{5e87cd17-9222-4cf5-9066-4ffa84d6ae0b}">
+      <Declaration><![CDATA[METHOD Close : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Close := false;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{ebfe7b03-d6f2-4ca9-a28f-4604097172bd}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    ptSdValve : POINTER TO SD_Valve;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ptSdValve := ptSdValve;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Open" Id="{71edc793-e772-4664-8a7d-02014c800cb4}">
+      <Declaration><![CDATA[METHOD Open : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Open := False;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RUN" Id="{964efa80-522f-4e8d-bd85-9cecd5924c27}">
+      <Declaration><![CDATA[METHOD RUN
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="StateName" Id="{db9bba26-be28-4c34-bf48-770d0b2ec75a}">
+      <Declaration><![CDATA[PROPERTY StateName : STRING]]></Declaration>
+      <Get Name="Get" Id="{e9684588-bec9-4d32-bcce-84cf4b1356d6}">
+        <Declaration><![CDATA[
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StateName := 'Init';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

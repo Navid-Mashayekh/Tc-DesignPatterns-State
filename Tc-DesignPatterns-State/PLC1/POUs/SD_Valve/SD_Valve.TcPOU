@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="SD_Valve" Id="{dfbd4953-2f88-4651-8be7-80f3e286c22c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SD_Valve
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+    coil : BOOL;
+END_VAR
+VAR
+    _initState : InitState(THIS);
+    _autoState : AutoState(THIS);
+    _manualState : ManualState(THIS);
+    _state : I_SD_ValveState := _initState;
+    _stateName : STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_state.RUN();
+_stateName := _state.StateName;
+]]></ST>
+    </Implementation>
+    <Method Name="CloseValve" Id="{67c8e181-db4b-47ab-8f6b-24c02f0f7752}">
+      <Declaration><![CDATA[METHOD CloseValve : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CloseValve := _state.Close();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GoToAutoState" Id="{4c78cffb-48b2-4393-b27f-ae1f82ca44ec}">
+      <Declaration><![CDATA[METHOD GoToAutoState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_state := _autoState;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GoToInitState" Id="{b94662f6-2200-4c1c-8721-06c0c6ad3338}">
+      <Declaration><![CDATA[METHOD GoToInitState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_state := _initState;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GoToManualState" Id="{9bcfc7b2-1821-4886-925e-46c8f81bc609}">
+      <Declaration><![CDATA[METHOD GoToManualState
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_state := _ManualState;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OpenValve" Id="{4120ee58-4a97-48d2-8314-ffb140277f52}">
+      <Declaration><![CDATA[METHOD OpenValve : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[OpenValve := _state.Open();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

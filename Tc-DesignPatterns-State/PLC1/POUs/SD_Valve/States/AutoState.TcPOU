@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="AutoState" Id="{8cea08e5-a635-4ec2-8d51-b4eb2b4b528e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK AutoState IMPLEMENTS I_SD_ValveState
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    _ptSdValve : POINTER TO SD_Valve;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Close" Id="{32e551a6-420e-4bc8-be73-27bc5964241a}">
+      <Declaration><![CDATA[METHOD Close : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Close := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{1fdcbc93-77bb-49d9-b6de-6b6192030d9d}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    ptSdValve : POINTER TO SD_Valve;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ptSdValve := ptSdValve;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Open" Id="{0ee2d403-d4f1-4413-92cc-9dccb688ee67}">
+      <Declaration><![CDATA[METHOD Open : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Open := true;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RUN" Id="{41fec5c8-d503-4e81-91ea-83fd3de9434b}">
+      <Declaration><![CDATA[METHOD RUN
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="StateName" Id="{b579d6c8-3340-4fe9-95b6-8f4102fdbb32}">
+      <Declaration><![CDATA[PROPERTY StateName : STRING]]></Declaration>
+      <Get Name="Get" Id="{a9de4539-3d12-48ce-bd37-3fa7eed1aad3}">
+        <Declaration><![CDATA[
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StateName := 'Auto';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -19,6 +19,13 @@ END_VAR
       <Declaration><![CDATA[METHOD RUN
 ]]></Declaration>
     </Method>
+    <Method Name="SetTransition" Id="{dc246f6b-af9a-4b0b-8b87-5db27e4badfc}">
+      <Declaration><![CDATA[METHOD SetTransition
+VAR_INPUT
+    transition : I_Transitive;
+END_VAR
+]]></Declaration>
+    </Method>
     <Property Name="StateName" Id="{a91f2d09-82e9-46d4-a25d-d3e08f17aa20}">
       <Declaration><![CDATA[PROPERTY StateName : STRING]]></Declaration>
       <Get Name="Get" Id="{2799e6ce-9b32-41d0-a059-1cd8a3413a6b}">

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_Transitive" Id="{fb060217-12bc-4c21-acaa-1b4decb98d3f}">
+    <Declaration><![CDATA[INTERFACE I_Transitive
+]]></Declaration>
+    <Method Name="Transit" Id="{5142eeb0-46a6-4b29-9332-ba77006d5d15}">
+      <Declaration><![CDATA[METHOD Transit
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

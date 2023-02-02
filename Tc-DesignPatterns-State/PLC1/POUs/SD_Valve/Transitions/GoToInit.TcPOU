@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="GoToInit" Id="{b00b96b1-8aa0-4b43-9bcf-be88fc645a25}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GoToInit IMPLEMENTS I_Transitive
+VAR
+    _currentState : POINTER TO I_SD_ValveState;
+    _nextState : REFERENCE TO InitState;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{81b97a08-793b-4446-a19e-6658f4842a75}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    currentState : POINTER TO I_SD_ValveState;
+    nextState : REFERENCE TO InitState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_currentState := currentState;
+_nextState REF= nextState;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Transit" Id="{35919353-e761-4906-9cb8-4fe087149a02}">
+      <Declaration><![CDATA[METHOD Transit
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_currentState^ := _nextState;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

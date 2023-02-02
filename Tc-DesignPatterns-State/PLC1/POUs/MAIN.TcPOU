@@ -8,6 +8,7 @@ VAR
     openResult : BOOL;
     closeCmd : BOOL;
     closeResult : BOOL;
+    goToAutoCmd : BOOL;
     goToManaulCmd : BOOL;
     goToInitCmd : BOOL;
 END_VAR
@@ -25,6 +26,11 @@ IF closeCmd THEN
     closeCmd := FALSE;
     closeResult := FALSE;
     closeResult := sdValve.CloseValve();
+END_IF
+
+IF goToAutoCmd THEN
+    goToAutoCmd := FALSE;
+    sdValve.GoToAutoState();
 END_IF
 
 IF goToManaulCmd THEN

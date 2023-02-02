@@ -13,10 +13,19 @@ VAR
     _manualState : ManualState(THIS);
     _state : I_SD_ValveState := _initState;
     _stateName : STRING;
+    _goToInit : GoToInit(ADR(_state), _initState);
+    _goToAuto : GoToAuto(ADR(_state), _autoState);
+    _goToManual : GoToManual(ADR(_state), _manualState);
+    _setDefaultTransitions : BOOL := TRUE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[_state.RUN();
+      <ST><![CDATA[IF _setDefaultTransitions THEN
+    _setDefaultTransitions := FALSE;
+    _initState.SetTransition(_goToAuto);
+END_IF
+
+_state.RUN();
 _stateName := _state.StateName;
 ]]></ST>
     </Implementation>
@@ -27,25 +36,44 @@ _stateName := _state.StateName;
         <ST><![CDATA[CloseValve := _state.Close();]]></ST>
       </Implementation>
     </Method>
-    <Method Name="GoToAutoState" Id="{4c78cffb-48b2-4393-b27f-ae1f82ca44ec}">
+    <Method Name="GoToAutoState" Id="{b3762f79-3d18-4959-a5a9-3e7b134a93fd}">
       <Declaration><![CDATA[METHOD GoToAutoState
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_state := _autoState;]]></ST>
+        <ST><![CDATA[IF _state.StateName = _autoState.StateName THEN
+    RETURN;
+END_IF
+
+IF _state.StateName = _initState.StateName THEN
+    _state.SetTransition(_goToAuto);
+ELSE
+    _goToInit.Transit();
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="GoToInitState" Id="{b94662f6-2200-4c1c-8721-06c0c6ad3338}">
       <Declaration><![CDATA[METHOD GoToInitState
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_state := _initState;]]></ST>
+        <ST><![CDATA[IF _state.StateName = _initState.StateName THEN
+    RETURN;
+END_IF
+
+_goToInit.Transit();]]></ST>
       </Implementation>
     </Method>
     <Method Name="GoToManualState" Id="{9bcfc7b2-1821-4886-925e-46c8f81bc609}">
-      <Declaration><![CDATA[METHOD GoToManualState
-]]></Declaration>
+      <Declaration><![CDATA[METHOD GoToManualState]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_state := _ManualState;]]></ST>
+        <ST><![CDATA[IF _state.StateName = _manualState.StateName THEN
+    RETURN;
+END_IF
+
+IF _state.StateName = _initState.StateName THEN
+    _state.SetTransition(_goToManual);
+ELSE
+    _goToManual.Transit();
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="OpenValve" Id="{4120ee58-4a97-48d2-8314-ffb140277f52}">

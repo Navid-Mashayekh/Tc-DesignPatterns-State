@@ -8,6 +8,7 @@ VAR_OUTPUT
 END_VAR
 VAR
     _ptSdValve : POINTER TO SD_Valve;
+    _transition : I_Transitive;
     delayTimer : Tc2_Standard.TON;
     start : BOOL;
 END_VAR
@@ -19,7 +20,10 @@ IF NOT start THEN
 END_IF
 IF delayTimer.q THEN
     start := FALSE;
-    _ptSdValve^.GoToAutoState();
+//    _ptSdValve^.GoToAutoState();
+    IF _transition<>0 THEN
+        _transition.Transit();
+	END_IF
 END_IF]]></ST>
     </Implementation>
     <Method Name="Close" Id="{5e87cd17-9222-4cf5-9066-4ffa84d6ae0b}">
@@ -53,6 +57,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTransition" Id="{82a09f8e-925f-4ba2-a84e-cfae191e2315}">
+      <Declaration><![CDATA[METHOD SetTransition
+VAR_INPUT
+	transition	: I_Transitive;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_transition := transition;]]></ST>
       </Implementation>
     </Method>
     <Property Name="StateName" Id="{db9bba26-be28-4c34-bf48-770d0b2ec75a}">

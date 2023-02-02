@@ -8,6 +8,7 @@ VAR_OUTPUT
 END_VAR
 VAR
     _ptSdValve : POINTER TO SD_Valve;
+    _transition : I_Transitive;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -44,6 +45,16 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTransition" Id="{7b78aa0d-bb8d-4bcc-9b33-d3702277ad07}">
+      <Declaration><![CDATA[METHOD SetTransition
+VAR_INPUT
+	transition	: I_Transitive;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_transition := transition;]]></ST>
       </Implementation>
     </Method>
     <Property Name="StateName" Id="{b579d6c8-3340-4fe9-95b6-8f4102fdbb32}">

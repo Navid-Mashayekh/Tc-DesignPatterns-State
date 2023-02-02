@@ -8,6 +8,7 @@ VAR_OUTPUT
 END_VAR
 VAR
     _ptSdValve : POINTER TO SD_Valve;
+    _transition : I_Transitive;
     delayTimer : Tc2_Standard.TP;
     command : BOOL;
 END_VAR
@@ -59,6 +60,16 @@ END_IF]]></ST>
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[THIS^();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetTransition" Id="{6a0f7af4-5433-42fb-9172-2d714a0ad8ac}">
+      <Declaration><![CDATA[METHOD SetTransition
+VAR_INPUT
+	transition	: I_Transitive;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_transition := transition;]]></ST>
       </Implementation>
     </Method>
     <Property Name="StateName" Id="{2f1af59c-3b7c-4020-971c-df013ba1abe4}">
